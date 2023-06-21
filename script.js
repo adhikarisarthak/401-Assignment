@@ -137,16 +137,25 @@ document.addEventListener('DOMContentLoaded', function () {
   // need work
 
   generateListBtn.addEventListener('click', function () {
-    shoppingList.innerHTML = '';
 
-    fridgeItems.forEach(function (item) {
-      if (parseInt(item.quantity) > 0) {
-        const listItem = document.createElement('li');
-        listItem.textContent = item.name;
-        shoppingList.appendChild(listItem);
-      }
-    });
-  });
+        shoppingList.innerHTML = '';
+
+        var todayDate = new Date();
+
+        fridgeItems.forEach(function (item) {
+
+          const expirationDate = new Date(item.expiration);
+
+          if (parseInt(item.quantity) > 0 && todayDate > expirationDate ) {
+            const listItem = document.createElement('li');
+            listItem.textContent = `${item.name} - Exp: ${item.expiration} - Qty: ${item.quantity}`;
+            shoppingList.appendChild(listItem);
+          }
+        });
+  }
+
+
+  );
 });
 
 
